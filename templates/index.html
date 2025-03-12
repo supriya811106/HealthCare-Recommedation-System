@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Care Quest</title>
+    <!-- Bootstrap CSS for styling and responsive features -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<!--    including Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Local stylesheet for custom styles -->
+    <link href="/static/css/styles.css" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <!-- Navigation Bar -->
+    <div class="navbar">
+        <img class="logo" src="{{ url_for('static', filename='images/CareQuest.webp') }}" alt="CareQuest Logo">
+        <div class="hamburger-menu" onclick="toggleNavbar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="navbar-links">
+            <a href="#">Home</a>
+            <a href="#description">Description</a>
+            <a href="#prediction">Recommend Doctors</a>
+        </div>
+    </div>
+
+    <!-- Main Section -->
+    <section class="main">
+        <!-- Videos or Slideshow -->
+        <video class="img-slide active" src="{{ url_for('static', filename='images/video0.mp4') }}" autoplay muted loop></video>
+        <video class="img-slide" src="{{ url_for('static', filename='images/video3.mp4') }}" autoplay muted loop></video>
+        <video class="img-slide" src="{{ url_for('static', filename='images/video2.mp4') }}" autoplay muted loop></video>
+        <video class="img-slide" src="{{ url_for('static', filename='images/video1.mp4') }}" autoplay muted loop></video>
+        <video class="img-slide" src="{{ url_for('static', filename='images/video4.mp4') }}" autoplay muted loop></video>
+        <!-- More videos -->
+
+        <!-- Contents -->
+        <!-- Slide 1 Content -->
+        <div class="content active">
+            <h2>Understanding Symptoms and Diagnostics</h2>
+            <p> Discover the importance of correctly identifying your symptoms. Learn how CareQuest AI uses advanced
+                algorithms to diagnose potential health issues, guiding you towards the appropriate medical attention
+            </p>
+        </div>
+
+        <!-- Slide 2 Content -->
+        <div class="content">
+            <h2>Find the Right Specialist</h2>
+            <p> Explore your options for specialized healthcare providers. CareQuest AI evaluates
+                your symptoms and suggests suitable
+                specialists, ensuring you receive expert care for your specific health needs
+            </p>
+        </div>
+
+        <!-- Slide 3 Content -->
+        <div class="content">
+            <h2>Smart Health Management Tips</h2>
+            <p> Effective health management starts with knowledge. Learn practical tips for maintaining your health,
+                managing chronic conditions, and optimizing your lifestyle choices based on AI-driven insights.
+            </p>
+        </div>
+
+        <!-- Slide 4 Content -->
+        <div class="content">
+            <h2>Enhance Your Healthcare Experience</h2>
+            <p> Implement simple actions to improve your health and wellness. CareQuest AI provides
+                personalized recommendations for lifestyle adjustments and preventive measures to enhance
+                your overall health.
+            </p>
+        </div>
+
+        <!-- Waste Prediction Section -->
+        <div class="content">
+            <h2>Predict Your Health Needs</h2>
+            <p> Utilize our innovative AI tool to predict future health risks based on your current
+                symptoms and medical history. Upload your health data and let CareQuest AI guide you
+                with predictive insights and proactive care solutions.
+            </p>
+        </div>
+        <!-- ... more content sections ... -->
+
+        <div class="recommend-btn">
+            <a href="#prediction" class="card-btn">Recommend Specialized Doctors</a>
+        </div>
+        <!-- Slider Navigation -->
+        <div class="slider-navigation">
+            <div class="nav-btn active"></div>
+            <div class="nav-btn"></div>
+            <div class="nav-btn"></div>
+            <div class="nav-btn"></div>
+            <div class="nav-btn"></div>
+            <!-- More navigation buttons -->
+        </div>
+    </section>
+
+    <section id="description" class="description">
+        <!-- <img class="background-img" src="/images/background.png" alt="background"> -->
+        <div class="description-container">
+            <h2>About CareQuest</h2>
+            <p>
+                CareQuest AI is a groundbreaking healthcare application designed to transform the way individuals and
+                healthcare providers approach symptom analysis and disease prediction. Using advanced artificial intelligence
+                technologies, CareQuest AI offers rapid and precise predictions of potential health conditions based on symptoms
+                entered by users. This powerful tool not only assists in early diagnosis but also significantly enhances decision-making
+                processes for both patients and doctors.
+            </p>
+            <p>
+                At the heart of CareQuest AI is a robust health recommendation system developed in Python. This system allows
+                users to input their symptoms into an intuitive interface. The AI then processes these inputs using sophisticated
+                algorithms trained on extensive medical datasets to identify likely diseases. This predictive capability is
+                crucial for early intervention and appropriate disease management.
+            </p>
+            <p>
+                Following a disease diagnosis, CareQuest AI takes a step further by recommending healthcare providers who specialize
+                in treating the identified condition. It incorporates user ratings of these providers, ensuring that recommendations
+                are not only based on specialty but also on peer-reviewed quality. This dual-criteria filtering places a high value on
+                patient satisfaction and trust in the healthcare system.
+            </p>
+        </div>
+    </section>
+
+        <!-- Prediction Section: Allows users to enter symptoms and request health recommendations -->
+    <div id="prediction" class="container mt-4 my-4 custom-container">
+        <!-- Form for predicting diseases based on symptoms and optional specified time -->
+        <form action="/predict" method="post">
+            <!-- Input group for entering symptoms -->
+            <div class="form-group">
+                <label for="symptoms">Enter Symptoms</label>
+                <input type="text" class="form-control" id="symptoms" name="symptoms" placeholder="Input Symptoms">
+                <!-- Button to trigger speech recognition for inputting symptoms via voice -->
+                <button type="button" id="startSpeechRecognition" class="btn btn-info mt-2">Speak Symptoms</button>
+            </div>
+            <!-- Visual separator for better form structure -->
+            <br>
+            <!-- Optional input for specifying a preferred time for a doctor's appointment -->
+            <div class="form-group">
+                <label for="time">Time (optional, format HH:MM):</label>
+                <input type="time" class="form-control" id="time" name="time" placeholder="HH:MM">
+            </div>
+            <!-- Visual separator for better form structure -->
+            <br>
+            <!-- Optional input for specifying a city and state -->
+            <div class="form-group">
+                <label for="city_state">City, State (optional, format: City, State):</label>
+                <input type="text" class="form-control" id="city_state" name="city_state" placeholder="Enter City, State">
+            </div>
+            <br>
+
+            <!-- Submission button for the form to process the entered symptoms and time -->
+
+            <button type="submit" class="btn btn-outline-light">Generate Recommendations</button>
+
+        </form>
+    </div>
+
+
+
+    {% if predicted_disease or health_providers %}
+    <div class="accordion" id="healthInfoAccordion">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                    aria-expanded="true" aria-controls="collapseOne">
+                    Predicted Disease
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                data-bs-parent="#healthInfoAccordion">
+                <div class="accordion-body">
+                    <p>{{ predicted_disease }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Available Doctors
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                data-bs-parent="#healthInfoAccordion">
+                <div class="accordion-body">
+                    {% if health_providers %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Doctor Name</th>
+                                <th>Available Time Slots</th>
+                                <th>User Rating</th>
+                                <th>City, State</th>
+                                <th>Hospital</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for provider in health_providers %}
+                            <tr>
+                                <td>{{ provider['Doctor Name'] }}</td>
+                                <td>{{ provider['Available Time Slots'] }}</td>
+                                <td>{{ provider['User Rating'] }}</td>
+                                 <!-- Concatenate city and state with a comma -->
+                                <td>{{ provider['City'] }}, {{ provider['State'] }}</td>
+                                <td>{{ provider['Hospital'] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <p>No doctors available for this disease.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+
+<div class="feedback-container">
+    <div class="feedback">
+        <header>We Value Your Feedback</header>
+
+        <form id="feedbackForm">
+            <label for="feedbackSelect">Did you find our insights useful?</label>
+            <select id="feedbackSelect">
+                <option>Please choose an option</option>
+                <option>Yes, very helpful</option>
+                <option>Somewhat helpful</option>
+                <option>Not helpful</option>
+            </select>
+
+            <label for="comments" style="display:none;">Kindly share any additional comments or suggestions...</label>
+            <textarea id="comments" style="display:none;"></textarea>
+
+            <button type="button" id="submitBtn" style="display:none;">Submit Feedback</button>
+        </form>
+
+        <p class="success-message"></p>
+    </div>
+    <footer>© 2024 CareQuest. All rights reserved.</footer>
+    </div>
+
+    <script src="script.js"></script>
+
+
+    <!-- SPEECH RECOGNITION     -->
+    <script src="static/script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous">
+
+    </script>
+</body>
+</html>
