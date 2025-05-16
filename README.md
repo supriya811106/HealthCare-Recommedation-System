@@ -1,6 +1,7 @@
 # **A Healthcare Recommendation System**  
  
 A **Flask-based web app** that predicts diseases based on symptoms and recommends specialized doctors. It uses **machine learning** for accurate health predictions and location-based doctor searches.  
+
 [Live Demo](https://healthcare-recommedation-system.onrender.com)
 ---
 
